@@ -1,118 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Senhas | Cyber-Noir</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Orbitron:wght@400;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de Senhas - Cyber Noir</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- Fluxos de Dados no Fundo -->
-    <div class="data-streams" id="dataStreams"></div>
 
-    <!-- Grade Holográfica -->
-    <div class="holographic-grid"></div>
-
-    <!-- Linhas Geométricas -->
-    <div class="geometric-lines">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
+    <!-- Fundo animado com canvas -->
+    <div class="bg-canvas">
+        <canvas id="bgCanvas"></canvas>
     </div>
+    <div class="vignette"></div>
 
-    <!-- Container Principal -->
-    <div class="main-container">
-        <!-- Cabeçalho -->
-        <div class="header">
-            <div class="header-icon">🔐</div>
-            <h1>Gerador de Senhas</h1>
-        </div>
+    <!-- Assinatura -->
+    <div class="signature">Designed by Matheus</div>
 
-        <!-- Exibição da Senha -->
-        <div class="password-container">
-            <div class="password-display" id="passwordDisplay">
-                Clique em Gerar
-            </div>
-            <button class="copy-btn" id="copyBtn">
-                📋 Copiar
+    <!-- Container principal -->
+    <div class="container">
+
+        <div class="title">Gerador de Senhas</div>
+
+        <!-- Área da senha -->
+        <div class="password-area">
+            <input type="text" id="passwordDisplay" readonly value="••••••••••••" />
+            <button class="copy-btn" id="copyBtn" aria-label="Copiar senha">
+                <svg viewBox="0 0 24 24">
+                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
             </button>
-            <div class="copied-tooltip" id="copiedTooltip">Copiado!</div>
         </div>
 
-        <!-- Medidor de Força -->
-        <div class="strength-meter">
-            <div class="strength-label">
-                <span>Força da Senha</span>
-                <span class="strength-value" id="strengthValue">-</span>
-            </div>
-            <div class="meter-bar">
-                <div class="meter-fill" id="meterFill" style="width: 0%;"></div>
-            </div>
-        </div>
+        <!-- Controles -->
+        <div class="controls">
 
-        <!-- Controle de Comprimento -->
-        <div class="slider-container">
-            <div class="slider-header">
-                <span class="slider-label">Comprimento</span>
-                <span class="length-value" id="lengthValue">16</span>
+            <!-- Slider -->
+            <div class="slider-group">
+                <div class="slider-header">
+                    <span>Comprimento</span>
+                    <span id="lengthLabel">16</span>
+                </div>
+                <input type="range" id="lengthSlider" min="6" max="32" value="16" step="1" />
             </div>
-            <div class="custom-slider">
-                <input type="range" 
-                       id="lengthSlider" 
-                       min="8" 
-                       max="32" 
-                       value="16">
-            </div>
-            <div class="slider-ticks">
-                <span>8</span>
-                <span>12</span>
-                <span>16</span>
-                <span>20</span>
-                <span>24</span>
-                <span>28</span>
-                <span>32</span>
-            </div>
-        </div>
 
-        <!-- Chaves de Opções -->
-        <div class="toggles-container">
-            <div class="toggle-item">
-                <span class="toggle-label">Incluir Números</span>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="includeNumbers" checked>
-                    <span class="toggle-slider"></span>
+            <!-- Toggles -->
+            <div class="toggles">
+                <label class="toggle-item active" data-key="numbers">
+                    <span class="toggle-track"><span class="toggle-knob"></span></span>
+                    Números
                 </label>
-            </div>
-            <div class="toggle-item">
-                <span class="toggle-label">Caracteres Especiais</span>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="includeSpecial" checked>
-                    <span class="toggle-slider"></span>
+                <label class="toggle-item active" data-key="special">
+                    <span class="toggle-track"><span class="toggle-knob"></span></span>
+                    Especiais
                 </label>
-            </div>
-            <div class="toggle-item">
-                <span class="toggle-label">Letras Maiúsculas</span>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="includeUppercase" checked>
-                    <span class="toggle-slider"></span>
+                <label class="toggle-item active" data-key="uppercase">
+                    <span class="toggle-track"><span class="toggle-knob"></span></span>
+                    Maiúsculas
                 </label>
             </div>
         </div>
 
         <!-- Botão Gerar -->
-        <button class="generate-btn" id="generateBtn">
-            ⚡ Gerar Senha
-        </button>
-
-        <!-- Assinatura -->
-        <div class="signature">
-            Criado por Matheus
-        </div>
+        <button class="generate-btn" id="generateBtn">Gerar Senha</button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
